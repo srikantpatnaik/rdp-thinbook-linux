@@ -53,9 +53,9 @@ function compile_kernel {
     # Config values are in kernel_build.config
     # Avoid kernel 4.17 - has issues with RDP 1130i
     # Because 4.17 had a huge set of ALSA changes?
-    # export KERNEL_TYPE=stable
-    # export KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs
-    # KERNEL_BUILD_CONFIG="./kernel_build.config" KERNEL__NO_SRC_PKG=yes KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs ./patch_and_build_kernel.sh
+     export KERNEL_TYPE=stable
+     export KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs
+     KERNEL_BUILD_CONFIG="./kernel_build.config" KERNEL__NO_SRC_PKG=yes KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs ./patch_and_build_kernel.sh
     
     KERNEL_BUILD_CONFIG="$TOP_DIR/kernel_build.config" $TOP_DIR/kernel_build/scripts/patch_and_build_kernel.sh
 
@@ -109,6 +109,6 @@ check_required_pkgs
 check_avail_disk_space
 
 update_from_git
-# compile_kernel
+compile_kernel
 remaster_iso
 echo "Start: $START_TIME" ; echo "Ended: $(date)"
