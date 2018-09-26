@@ -35,11 +35,11 @@ function update_from_git {
     cd $TOP_DIR
     rm -rf bootutils rdp-thinbook-linux kernel_build
     echo "Cloning bootutils..."
-    git clone --depth 1 https://github.com/sundarnagarajan/bootutils.git 2>/dev/null
+    git clone --depth 1 https://github.com/srikantpatnaik/bootutils.git 2>/dev/null
     echo "Cloning rdp-thinbook-linux..."
-    git clone --depth 1 https://github.com/sundarnagarajan/rdp-thinbook-linux.git 2>/dev/null
+    git clone --depth 1 https://github.com/srikantpatnaik/rdp-thinbook-linux.git 2>/dev/null
     echo "Cloning kernel_build"
-    git clone --depth 1 'https://github.com/sundarnagarajan/kernel_build.git' 2>/dev/null
+    git clone --depth 1 https://github.com/srikantpatnaik/kernel_build.git 2>/dev/null
 
     # Copy scripts from bootutils
     \rm -rf $TOP_DIR/rdp-thinbook-linux/remaster/chroot/scripts
@@ -53,9 +53,9 @@ function compile_kernel {
     # Config values are in kernel_build.config
     # Avoid kernel 4.17 - has issues with RDP 1130i
     # Because 4.17 had a huge set of ALSA changes?
-     export KERNEL_TYPE=stable
-     export KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs
-     KERNEL_BUILD_CONFIG="./kernel_build.config" KERNEL__NO_SRC_PKG=yes KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs ./patch_and_build_kernel.sh
+    # export KERNEL_TYPE=stable
+     #export KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs
+     #KERNEL_BUILD_CONFIG="./kernel_build.config" KERNEL__NO_SRC_PKG=yes KERNEL_BUILD_DIR=$TOP_DIR/kernel_build/debs ./patch_and_build_kernel.sh
     
     KERNEL_BUILD_CONFIG="$TOP_DIR/kernel_build.config" $TOP_DIR/kernel_build/scripts/patch_and_build_kernel.sh
 
@@ -107,7 +107,6 @@ fi
 
 check_required_pkgs
 check_avail_disk_space
-
 update_from_git
 compile_kernel
 remaster_iso
