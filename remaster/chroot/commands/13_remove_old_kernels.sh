@@ -59,13 +59,18 @@ do
 		REMOVE_LIST="$REMOVE_LIST $p"
 	fi
 done
-for p in linux-signed-image-generic linux-generic
-do
-	fgrep -qx $p $KP_LIST
-	if [ $? -ne 0 ]; then
-		REMOVE_LIST="$REMOVE_LIST $p"
-	fi
-done
+
+# code commented by Srikant
+# This breaks with Debian preinstalled kernels, is it must for Ubuntu? Disabling for now!
+
+#for p in linux-signed-image-generic linux-generic
+#do
+#	fgrep -qx $p $KP_LIST
+#	if [ $? -ne 0 ]; then
+#		REMOVE_LIST="$REMOVE_LIST $p"
+#	fi
+#done
+## end comment by Srikant
 
 if [ -n "$REMOVE_LIST" ]; then
     echo "Removing following packages:"
@@ -73,7 +78,7 @@ if [ -n "$REMOVE_LIST" ]; then
     do
         echo $p | sed -e 's/^/    /'
     done
-    sudo apt-get autoremove -y --purge $REMOVE_LIST 2>/dev/null 1>/dev/null
+    sudo apt-get autoremove -y --purge $REMOVE_LIST #2>/dev/null 1>/dev/null #sri
 else
     echo "No kernel packages to remove"
 fi
