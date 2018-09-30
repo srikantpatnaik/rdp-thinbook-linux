@@ -57,7 +57,7 @@ done
 # Find each file named vmlinuz* and initrd* and overwrite them if they
 # are different from SRC_VMLINUZ and SRC_INITRD respectively
 
-for f in ${ISO_EXTRACT_DIR}/casper/vmlinuz*
+for f in ${ISO_EXTRACT_DIR}/{casper,live}/vmlinuz*
 do
     SRC_FILE=$SRC_VMLINUZ
     diff --brief $SRC_FILE $f 1>/dev/null
@@ -69,7 +69,7 @@ do
     fi
 done
 
-for f in ${ISO_EXTRACT_DIR}/casper/initrd*
+for f in ${ISO_EXTRACT_DIR}/{casper,live}/initrd*
 do
     SRC_FILE=$SRC_INITRD
     diff --brief $SRC_FILE $f 1>/dev/null
@@ -80,3 +80,4 @@ do
         echo "$(basename $f) unchanged - not overwriting"
     fi
 done
+update-grub
